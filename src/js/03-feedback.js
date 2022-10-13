@@ -60,8 +60,8 @@ const onInputWrite = (event) => {
         valuesForm.message = event.target.value;
     }
 
-    formObjValues = JSON.stringify(valuesForm);
-    localStorage.setItem("feedback-form-state", formObjValues);
+    formObj = JSON.stringify(valuesForm);
+    localStorage.setItem("feedback-form-state", formObj);
 }
 
 const onButtonClick = (event) => {
