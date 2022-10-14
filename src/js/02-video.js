@@ -39,7 +39,7 @@ import _ from 'lodash';
 
 const player = new Player('vimeo-player');
 const lodash = _; 
-const currentTime = sessionStorage.getItem("videoplayer-current-time");;
+const currentTime = localStorage.getItem("videoplayer-current-time");;
 
 player.setCurrentTime(currentTime).then(function(seconds) {    
 }).catch(function(error) {
@@ -55,5 +55,5 @@ player.setCurrentTime(currentTime).then(function(seconds) {
 player.on('timeupdate', lodash.throttle(
     function (data) {
     console.log(Math.trunc(data.seconds));
-    sessionStorage.setItem("videoplayer-current-time", data.seconds);
+    localStorage.setItem("videoplayer-current-time", data.seconds);
 }, 1000));
