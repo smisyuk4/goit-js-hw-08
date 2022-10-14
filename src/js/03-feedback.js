@@ -21,7 +21,7 @@
 import _ from 'lodash';
 
 const lodash = _; 
-const valuesForm = {};
+let valuesForm = {};
 let formObj = localStorage.getItem('feedback-form-state');
 
 const refs = {
@@ -36,17 +36,21 @@ if (formObj) {
     writeValuesForm(dataFromStorage);
 }
 
-function writeValuesForm(dataFromStorage){
+function writeValuesForm(dataFromStorage) {        
     const {
         email,
         message,
     } = dataFromStorage;
 
-    refs.email.value = email;
-    refs.message.value = message;
+    if (dataFromStorage.hasOwnProperty('email')) {
+        refs.email.value = email;
+        valuesForm.email = email;
+    }
 
-    valuesForm.email = email;
-    valuesForm.message = message;
+    if (dataFromStorage.hasOwnProperty('message')) {
+        refs.message.value = message;
+        valuesForm.message = message;
+    }    
 }
 
 const onInputWrite = (event) => {
@@ -68,12 +72,12 @@ const onButtonClick = (event) => {
     event.preventDefault(); 
     console.log(valuesForm)
 
+    localStorage.clear();   
     refs.email.value = '';
     refs.message.value = '';
-    localStorage.clear();    
+    valuesForm = {};
 }
 
 refs.form.addEventListener('input', lodash.throttle(onInputWrite, 500));
 
-refs.form.addEventListener('submit', onButtonClick)
-
+refs.form.addEventListener('submit', onButtonClick);
